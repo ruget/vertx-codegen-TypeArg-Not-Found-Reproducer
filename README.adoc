@@ -1,0 +1,48 @@
+= TypeArg class not found reproducer
+
+== Description
+
+With Vert.x 3.6.1, dependency `io.vertx:vertx-rx-java2:3.6.1` give a runtime exception on start.
+
+[source]
+----
+Dec 17, 2018 6:23:46 PM io.vertx.core.impl.DeploymentManager
+SEVERE: io/vertx/lang/rx/TypeArg
+java.lang.NoClassDefFoundError: io/vertx/lang/rx/TypeArg
+	at io.vertx.reactivex.core.Vertx.<clinit>(Vertx.java:90)
+	at io.vertx.reactivex.core.AbstractVerticle.init(AbstractVerticle.java:34)
+	at io.vertx.core.impl.DeploymentManager.lambda$doDeploy$8(DeploymentManager.java:492)
+	at io.vertx.core.impl.ContextImpl.executeTask(ContextImpl.java:320)
+	at io.vertx.core.impl.EventLoopContext.lambda$executeAsync$0(EventLoopContext.java:38)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:404)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:897)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.lang.ClassNotFoundException: io.vertx.lang.rx.TypeArg
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 11 more
+----
+
+== Prerequisites
+
+* Apache Maven 3.5.3+
+* Java 8
+
+== Build
+
+[source]
+----
+mvn clean install
+----
+
+== Run
+
+[source]
+----
+java -jar target/typearg-notfound-0.0.1.jar 
+----
